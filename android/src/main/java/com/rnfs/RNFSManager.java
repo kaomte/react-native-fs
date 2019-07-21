@@ -761,7 +761,9 @@ public class RNFSManager extends ReactContextBaseJavaModule {
 
       Downloader downloader = new Downloader();
 
-      downloader.execute(params);
+      // Per https://github.com/itinance/react-native-fs/issues/534
+      downloader.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, params);
+      // downloader.execute(params);
 
       this.downloaders.put(jobId, downloader);
     } catch (Exception ex) {
